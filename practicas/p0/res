@@ -38,3 +38,21 @@ Permiso  | Símbolo
   execute| x
 
     *
+
+7.  'grep' -> muestra las apariciones de un patron delimitado en un archivo
+        * -n -> lista las aparciones indexando en la linea en la que aparecen
+        * -c -> imprime la cantidad de apariciones
+        * -i -> ignora el case en los patterns , es decir, no es case sensitive
+        * -v -> lista las lineas donde no hay apariciones de los patterns
+        * -w -> lista solo cuando coiciden los strings completamente , es decir no matchea substrings
+
+    *El comando me lista las contraseñas de los usuarios del sistema , -v login es para que no aparezca la info redundante.
+
+    'cut' -> corta secciones de cada linea de un archivo dado.
+        * -d -> determina el delimitador entre los campos ya que por default es TAB
+        * -f -> determina los campos que van a ser delimitados, es decir , que permanecen. Es como un slice o exp. regular.
+
+8.
+    * 'bash' -> ejecutar scripts de Shell/UNIX comands
+    
+
