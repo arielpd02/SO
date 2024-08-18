@@ -1,0 +1,40 @@
+1.
+    a. 'whoami' -> imprime el user-id
+    b. 'uname' -> imprime info del sistema (breve). Con -a imprime detalles como la arq. del procesador , la hora ,el nombre del maquina, el SO,etc.
+    c. 'id' -> imprime el id del usuario actual. Hay opciones para todo user
+    d. 'ps' -> printea un conjunto de procesos activos. Con la opcion -e , podemos ver todos los procesos activos.
+    e. 'top' -> printea una vista dinamica del sistema en ejecucion ; en si , un resumen de info del sistema y una lista de procesos o threads manejados por el kernel. Agregado '-n x' muestra las primeras x iteraciones de CS desde que se ejecuta top. -i muestra solo las tareas que han usado el CPU desde la ultima actualizacion
+
+2.
+    * 'ls /' -> printea archivos no visibles en el directorio.    
+    * 'ls':
+        -a -> no ignora entradas que prefijo '.'
+        -d -> lista los directorios en si , no sus contenidos/archivos
+        -h -> lista los contendidos humanreadable ; con el espacio que ocupa c/u.
+        -l -> lista con info como fecha de creacion , permisos,owner,etc.
+        -S -> lista en orden decreciente de tamano en memoria
+        -t -> lista en orden temportal , el mas reciente primero
+        -r -> lista en orden reverso al que aparecen comunmente
+    *'ls -la /etc ' lista todos los contenidos formateados con -l del directorio /etc ; que contiene archivos de configuracion del sistema 
+
+*Contexto: El root es un concepto a nivel de usuario. Aunque tiene el control total sobre el sistema, sigue operando dentro del marco del sistema operativo.
+*Observacion: La mayoria de comandos de manejo de archivos y directorios permite un path relativo como absoluto para manipularlos (ejemplo : 4.d.iii)
+
+Símbolo Path al que refiere
+∼  |Directorio Home
+/  |Directorio Root
+.  |Directorio actual
+.. |Directorio padre
+
+4.
+    * 'find' -> usado para buscar files en un dir segun cierto parametro (dueno,nombre,tipo ,timestamp) en el arbol de directorios a partir del actual
+    * Dif entre rm -r y rmdir es que este ultimo requiere que el dir este vacio; ya que rm -r elimina el dir y sus contenidos recursivamente.
+
+5.
+
+Permiso  | Símbolo
+  read   | r
+  write  | w
+  execute| x
+
+    *
