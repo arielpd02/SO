@@ -1,3 +1,8 @@
+
+
+--COMANDOS DE LINUX Y SHELL SCRIPTING------------------------------------------
+
+
 1.
     a. 'whoami' -> imprime el user-id
     b. 'uname' -> imprime info del sistema (breve). Con -a imprime detalles como la arq. del procesador , la hora ,el nombre del maquina, el SO,etc.
@@ -31,11 +36,12 @@ Símbolo Path al que refiere
     * Dif entre rm -r y rmdir es que este ultimo requiere que el dir este vacio; ya que rm -r elimina el dir y sus contenidos recursivamente.
 
 5.
-
-Permiso  | Símbolo
-  read   | r
-  write  | w
-  execute| x
+    *chmod -> cambia permisos de un archivo , user , etc.
+    
+Permiso  | Símbolo      Opción | Descripción
+  read   | r            r,w,x  | Permisos: read, write, execute
+  write  | w            u,g,o  | Categoría de usuario: user, group, other
+  execute| x            +,-    | Operación: dar o quita
 
     *
 

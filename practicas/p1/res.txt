@@ -1,0 +1,4 @@
+1.
+     En 1er lugar ,se deben guardarse el IP , registros del procesador , los recursos que espera , su estado y su prioridad en una estr. de datos llamada PCB para resguardar contexto del proceso actual. En segundo lugar , cargar lo mismo del proceso a switchear . En caso de ser nuevo, cargarlo en memoria , actualiza IP al comienzo del programa ,etc.
+
+     
