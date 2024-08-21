@@ -1,0 +1,11 @@
+------------Ejercicio 2 ------------
+"Recordar que la funci´on signal, llama a la syscall rt sigaction. Para m´as informaci´on se puede consultar
+el manual con el comando man."
+
+    *Se lanzan dos procesos en total al ser ejecutado ; el padre y un solo hijo pq hay un solo llamado a la syscall 'clone'.
+        **Proceso padre -> crea al proc hijo y luego modifica el handler de SIG_INT [p/ que atienda la rutina del programa pasado como parametro], como el de SIGCHLD / el handler sea el de SIG_DFL, es decir , el mismo x default; luego deja pasar 1 segundo y escribe por consola "sup!" c/write.Acto seguido , le manda la signal SIGURG al hijo.Esto se produce una cantidad x de veces (maybe hay un loop) hasta que eventualmente hay un wait luego de mandar la signal SIGINT; resumida la suspension,por medio de exit/SIGCHLD , finaliza este con un exit_group(0).
+
+        **Proceso hijo -> una vez creado modifica el handler de SIGURG , donde luego c/v que el padre le manda la signal SIGURG , este en el handler escribe por consola "ya va!".En el momento q le manda la signal SIGINT , se corre el programa parametro y en el handler se finaliza el proceso hijo con un exit_group(0).
+    *La IPC entre procesos se da por medio de las signals SIGINT , SIGCHLD y SIGURG; ademas wait() permite que el padre no avance hasta que finalice el hijo.
+    *La logica/accion del programa es que el padre llama al hijo y este responde una cant. de veces hasta que el padre lo manda a ejecutar el programa parametro.
+        **Otra deduccion es que por medio de los handlers , un proceso puede "manipular" a otro si estan en el mismo nivel de privilegio.
