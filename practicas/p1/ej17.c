@@ -8,8 +8,6 @@ enum{PADRE,HIJO1,HIJO2};
 int pipes[3][2];
 
 void hijo1(){
-    //Creamos el pipe del hijo1
-    pipe(pipes[HIJO1]);
     int valor=0;
     while(valor<50){
         read(pipes[PADRE][READ],&valor,sizeof(valor));
@@ -36,12 +34,13 @@ void hijo2(){
 
 }
 
-
+/*Mejor implementacion -> while(1) , que la guarda sea los valores de 'valor'. De esta manera nos abstraemos de a quien le toca el valor final.*/
 
 
 int main(void){
     //Creamos los pipes de comunicacion
     pipe(pipes[PADRE]);
+    pipe(pipes[HIJO1]);
     pipe(pipes[HIJO2]);
 
     //Creamos los hijos
@@ -61,6 +60,7 @@ int main(void){
 
     while(valor <50){
         read(pipes[HIJO2][READ],&valor,sizeof(valor));
+        if(valor>=50) break;
         valor++;
         printf("Padre envia el valor %d\n",valor);
         write(pipes[PADRE][WRITE],&valor,sizeof(valor));

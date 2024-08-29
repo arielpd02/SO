@@ -1,4 +1,16 @@
 1.
      En 1er lugar ,se deben guardarse el IP , registros del procesador , los recursos que espera , su estado y su prioridad en una estr. de datos llamada PCB para resguardar contexto del proceso actual. En segundo lugar , cargar lo mismo del proceso a switchear . En caso de ser nuevo, cargarlo en memoria , actualiza IP al comienzo del programa ,etc.
 
-     
+17.  A efectos del ejercicio , el comportamiento no es el mismo ya que ambas syscalls son bloqueantes a los procesos y lo mismo no siempre pasa con los pipes ; el proceso lector no avanza hasta que lea la # bytes determinada de la punta del pipe READ , y el escritor se bloquea unicamente si el buffer de memoria esta lleno .Las syscalls bsend y breceive son bloqueantes de igual maner a, notar que la cola de mensajes temporal es de capacidad cero , por lo que hasta que no se lea no se puede escribir de vuelta.
+     Ademas , bsend/breceive permiten manipular o transferir unicamente 4 bytes , debido a que el msg a enviar solo puede ser de tipo int. Read/write no tiene estas restricciones , mas que la capacidad del buffer permitida.
+
+
+19.
+     a.   *fork()->genera/llama a clone()
+          *pipe() -> llama a la misma syscall
+          *getppid() -> genera la syscall del mismo nombre
+          *sleep() -> llama a ls sycall nanosleep()
+          *signal() -> llama a la syscal rt_sigaction
+          *kill() -> l llama a la syscal kill
+          *read/write -> idems
+          *exit-> llama a la syscall exit_group
