@@ -25,18 +25,15 @@ long contarPares(long desde, long hasta) {
   return cantidad;
 }
 
-void ejecutarHijo(int i ,int pipe_fd[]/* file descriptors a los pipes necesarios */) {
+void ejecutarHijo(int i ,int pipe_hijo[],int pipe_padre[]/* file descriptors a los pipes necesarios */) {
   // Leer del i-ésimo pipe el rango [desde, hasta) para realizar el cómputo
   long desde,hasta;
-  read(pipe_fd[READ],&desde,sizeof(desde));
-  read(pipe_fd[READ],&hasta,sizeof(hasta));
-
-  //Cerramos la punta de lectura
-  close(pipe_fd[READ]);
+  read(pipe_padre[READ],&desde,sizeof(desde));
+  read(pipe_padre[READ],&hasta,sizeof(hasta));
 
   // Contar pares y escribir el resultado
   long res=contarPares(desde,hasta);
-  write(pipe_fd[WRITE],&res,sizeof(res));
+  write(pipe_hijo[WRITE],&res,sizeof(res));
 
   exit(EXIT_SUCCESS);
 }
@@ -50,11 +47,13 @@ int main(int argc, char const* argv[]) {
   }
   procesos = atoi(argv[1]);
 
-  // Crear pipes
-  int pipes[procesos][2];
+  // Crear pipes; uno para padre->hijo y otro para hijo->padre
+  int pipes_padre[procesos][2];
+  int pipes_hijo[procesos][2];
   for (size_t i = 0; i < procesos; i++)
   {
-    pipe(pipes[i]);
+    pipe(pipes_hijo[i]);
+    pipe(pipes_padre[i]);
   }
   
 
@@ -63,7 +62,7 @@ int main(int argc, char const* argv[]) {
   {
     pid_t pid_hijo=fork();
     if(pid_hijo==0){
-      ejecutarHijo(i,pipes[i]);
+      ejecutarHijo(i,pipes_hijo[i],pipes_padre[i]);
     }
   }
   
@@ -77,8 +76,9 @@ int main(int argc, char const* argv[]) {
     if (hasta > RANGO_MAX) hasta = RANGO_MAX;
 
     // Enviar rango a cada hijo
-    write(pipes[i][WRITE],&desde,sizeof(desde));
-    write(pipes[i][WRITE],&hasta,sizeof(hasta));
+    write(pipes_padre[i][WRITE],&desde,sizeof(desde));
+    write(pipes_padre[i][WRITE],&hasta,sizeof(hasta));
+
 
     desde = hasta;
   }
@@ -86,7 +86,7 @@ int main(int argc, char const* argv[]) {
   // Cerrar pipes inteligentemente
   for (size_t i = 0; i < procesos; i++)
   {
-    close(pipes[i][WRITE]);
+    close(pipes_padre[i][WRITE]);
   }
   
 
@@ -95,7 +95,7 @@ int main(int argc, char const* argv[]) {
   for (size_t i = 0; i < procesos; i++)
   {
     long parcial;
-    read(pipes[i][READ],&parcial,sizeof(parcial));
+    read(pipes_hijo[i][READ],&parcial,sizeof(parcial));
     resultado+=parcial;
   }
   
